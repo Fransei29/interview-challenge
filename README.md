@@ -142,33 +142,6 @@ The SQLite database is located at `backend/database.sqlite`.
 
 ---
 
-## 📁 Project Structure
-
-```
-oxyera-medication-tracker/
-├── backend/
-│   ├── src/
-│   │   ├── patient/           # Patient CRUD operations
-│   │   ├── medication/         # Medication CRUD operations
-│   │   ├── assignment/         # Assignment CRUD operations
-│   │   ├── utils/             # Utility functions (remaining days)
-│   │   └── app.module.ts      # Main application module
-│   ├── test/                  # Comprehensive test suite
-│   ├── database.sqlite        # SQLite database
-│   ├── .env                   # Environment variables (create this file)
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── app/              # Next.js pages
-│   │   ├── components/        # Reusable UI components
-│   │   ├── lib/              # API utilities and types
-│   │   └── styles/           # Global styles
-│   └── package.json
-└── README.md
-```
-
----
-
 ## 🧪 Testing
 
 **Backend Tests:**
