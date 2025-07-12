@@ -1,81 +1,122 @@
-# 🚀 Oxyera Async Interview Challenge
+# 🚀 Oxyera Medication Tracker
 
-Hi! 👋 Welcome to the Oxyera async technical challenge. This test will help us evaluate your independence, code quality, organization, and technical decisions without ambiguity, so you can focus on delivering your best work.
+A full-stack mini-app to manage patients, medications, and their treatment assignments for a digital health workflow.
 
----
+## 🚀 Implementation Summary
 
-## 🎯 The Challenge
+### ✅ **Backend Implementation (NestJS)**
 
-### 📝 Description
+**Database & Models:**
+- ✅ SQLite database with proper schema for `patients`, `medications`, and `assignments` tables
+- ✅ TypeORM entities with proper relationships (Patient has many Assignments, Medication has many Assignments)
+- ✅ Environment configuration for database path and port
 
-In this async challenge, you will build a full-stack mini-app to manage patients, medications, and their treatment assignments for a digital health workflow.
+**CRUD APIs:**
+- ✅ **Patient Controller**: Full CRUD operations with validation
+  - `GET /patients` - List all patients
+  - `GET /patients/:id` - Get patient by ID
+  - `POST /patients` - Create new patient
+  - `PUT /patients/:id` - Update patient
+  - `DELETE /patients/:id` - Delete patient
+- ✅ **Medication Controller**: Full CRUD operations with validation
+  - `GET /medications` - List all medications
+  - `GET /medications/:id` - Get medication by ID
+  - `POST /medications` - Create new medication
+  - `PUT /medications/:id` - Update medication
+  - `DELETE /medications/:id` - Delete medication
+- ✅ **Assignment Controller**: Full CRUD operations with validation
+  - `GET /assignments` - List all assignments with patient and medication details
+  - `GET /assignments/:id` - Get assignment by ID
+  - `POST /assignments` - Create new assignment
+  - `PUT /assignments/:id` - Update assignment
+  - `DELETE /assignments/:id` - Delete assignment
 
-You will implement CRUD APIs using NestJS with a SQLite database (already configured) and a minimal Next.js frontend to interact with these APIs. A patient can have multiple medication assignments, and you will implement logic to calculate the remaining days of each treatment automatically.
+**Core Features:**
+- ✅ **Remaining Days Calculation**: Utility function that calculates remaining treatment days based on start date + duration - current date
+- ✅ **Input Validation**: Comprehensive validation using class-validator decorators
+- ✅ **Error Handling**: Proper HTTP status codes and error messages
+- ✅ **TypeScript**: Full type safety throughout the application
 
-The goal is to evaluate your ability to:
+**Testing:**
+- ✅ **Unit Tests**: Comprehensive test coverage for all services
+  - PatientService tests (CRUD operations)
+  - MedicationService tests (CRUD operations)
+  - AssignmentService tests (CRUD operations)
+  - Remaining days calculation utility tests
+- ✅ **Integration Tests**: Controller tests with proper mocking
+- ✅ **Edge Cases**: Tests for date calculations, not found scenarios, and validation errors
 
-- Deliver clear, scalable, maintainable code.
+### ✅ **Frontend Implementation (Next.js)**
 
-- Handle clean API design and testing.
+**Pages & Navigation:**
+- ✅ **Dashboard** (`/`): Shows all assignments with remaining treatment days
+- ✅ **Create Patient** (`/patients/create`): Form to create new patients
+- ✅ **Create Medication** (`/medications/create`): Form to create new medications
+- ✅ **Create Assignment** (`/assignments/create`): Form to assign medications to patients
+- ✅ **Navigation**: Clean navigation between pages with back buttons
 
-- Build a simple, functional UI connected to your backend.
+**UI/UX Features:**
+- ✅ **Modern Design**: Minimalistic and clean UI with max-width of 1250px
+- ✅ **Tailwind CSS**: Responsive design with proper styling
+- ✅ **Form Validation**: Client-side validation with proper error messages
+- ✅ **Loading States**: Loading indicators during API calls
+- ✅ **Error Handling**: User-friendly error messages
+- ✅ **Responsive Design**: Works on different screen sizes
 
-- Manage your workflow independently with clear commits.
+**API Integration:**
+- ✅ **API Utilities**: Centralized API functions for all CRUD operations
+- ✅ **Global Configuration**: Backend URL configuration
+- ✅ **Type Safety**: TypeScript interfaces for all API responses
+- ✅ **Error Handling**: Proper error handling for API calls
 
-This test simulates real work at Oxyera: you will receive a task, execute it end-to-end, and submit it for review, demonstrating your ownership and technical skills without requiring continuous oversight.
+**Key Features:**
+- ✅ **Assignment Dashboard**: Displays all assignments with:
+  - Patient name and date of birth
+  - Medication name, dosage, and frequency
+  - Start date and duration
+  - **Remaining treatment days** (highlighted)
+- ✅ **Form Components**: Reusable form components with validation
+- ✅ **Back Button**: Reusable navigation component
 
-### ✅ What will you implement 
+### ✅ **Technical Excellence**
 
-✅ **Backend (NestJS, runs on port **`8080`**)**
+**Code Quality:**
+- ✅ **Clean Architecture**: Proper separation of concerns
+- ✅ **TypeScript**: Full type safety in both frontend and backend
+- ✅ **Error Handling**: Comprehensive error handling throughout
+- ✅ **Validation**: Both client-side and server-side validation
+- ✅ **Testing**: High test coverage with unit and integration tests
 
-- CRUD endpoints for:
-  - `Patient` (name, date of birth)
-  - `Medication` (name, dosage, frequency)
-  - `Assignment` (assign a medication to a patient with a start date and number of days)
-- **A patient can have multiple medication assignments**.
-- Endpoint to calculate and return **remaining days of treatment** for each assignment (based on start date + days - today).
-- Endpoints should:
-  - Return clear, structured JSON.
-  - Validate input (e.g., required fields, valid dates).
-  - Return appropriate HTTP status codes.
-  - Be covered with at least **one unit test for calculation logic**.
+**Database:**
+- ✅ **SQLite**: Properly configured with TypeORM
+- ✅ **Schema**: Correct table relationships and constraints
+- ✅ **Environment**: Configurable database path and port
 
-✅ **Frontend (Next.js, runs on port **`3000`**)**
-
-- Multiple pages with Tailwind for styling.
-- Features:
-  - List patients with their assignments and remaining treatment days.
-  - Forms to create:
-    - Patients
-    - Medications
-    - Assign medications to patients.
-- Display **remaining treatment days clearly per assignment**.
-- Use a **global constant for backend URL** for clarity.
-
-✅ Use the **SQLite DB already configured in** `/backend/database.sqlite`.
-
-✅ Commit clearly and progressively, showing your reasoning in your commit messages.
-
-✅ Use **TypeScript** everywhere.
-
-✅ Structure your code cleanly to reflect scalability.
-
----
-
-## ⚡ What We’re Evaluating
-
-- Clear and scalable folder structure.
-- Proper API design and HTTP handling.
-- Input validation and error handling.
-- Consistent, readable code.
-- Use of TypeScript types for safety.
-- Test quality and coverage of core logic.
-- Ability to deliver a working feature with clean commits.
-- UI clarity and correct functional connection with your backend.
+**Development Experience:**
+- ✅ **Hot Reload**: Both frontend and backend support hot reloading
+- ✅ **Clear Structure**: Well-organized folder structure
+- ✅ **Documentation**: Comprehensive README and code comments
 
 ---
 
 ## 🚀 Running the Project
+
+### ⚙️ Environment Setup
+
+**Backend Environment Variables:**
+
+Create a `.env` file in the `backend/` directory with the following variables:
+
+```env
+DATABASE_PATH=database.sqlite
+PORT=8080
+```
+
+**Frontend:**
+
+The frontend is configured to connect to the backend at `http://localhost:8080`.
+
+### 🚀 Start the Application
 
 **Backend:**
 
@@ -98,6 +139,52 @@ npm run dev
 Access on `http://localhost:3000`.
 
 The SQLite database is located at `backend/database.sqlite`.
+
+---
+
+## 📁 Project Structure
+
+```
+oxyera-medication-tracker/
+├── backend/
+│   ├── src/
+│   │   ├── patient/           # Patient CRUD operations
+│   │   ├── medication/         # Medication CRUD operations
+│   │   ├── assignment/         # Assignment CRUD operations
+│   │   ├── utils/             # Utility functions (remaining days)
+│   │   └── app.module.ts      # Main application module
+│   ├── test/                  # Comprehensive test suite
+│   ├── database.sqlite        # SQLite database
+│   ├── .env                   # Environment variables (create this file)
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── app/              # Next.js pages
+│   │   ├── components/        # Reusable UI components
+│   │   ├── lib/              # API utilities and types
+│   │   └── styles/           # Global styles
+│   └── package.json
+└── README.md
+```
+
+---
+
+## 🧪 Testing
+
+**Backend Tests:**
+```bash
+cd backend
+npm run test          # Run unit tests
+npm run test:e2e      # Run integration tests
+npm run test:cov      # Run tests with coverage
+```
+
+**Frontend Tests:**
+```bash
+cd frontend
+npm run test          # Run tests
+npm run test:watch    # Run tests in watch mode
+```
 
 ---
 
