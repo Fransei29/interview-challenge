@@ -1,29 +1,53 @@
 "use client";
 
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+
 interface ErrorMessageProps {
   error: string | null;
 }
 
 export default function ErrorMessage({ error }: ErrorMessageProps) {
-  if (!error) return null;
-
   return (
-    <div className="mb-8 bg-red-50 border border-red-200 rounded-2xl p-6">
-      <div className="flex items-start">
-        <div className="flex-shrink-0">
-          <svg className="h-6 w-6 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-          </svg>
-        </div>
-        <div className="ml-4">
-          <h3 className="text-lg font-semibold text-red-800">
-            Connection Error
-          </h3>
-          <div className="mt-2 text-red-700">
-            {error}
+    <AnimatePresence>
+      {error && (
+        <motion.div 
+          className="mb-8 bg-red-50 border border-red-200 rounded-2xl p-6 shadow-lg"
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: "easeOut" as const }}
+        >
+          <div className="flex items-start">
+            <motion.div 
+              className="flex-shrink-0"
+              initial={{ rotate: -10, scale: 0.8 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" as const }}
+            >
+              <ExclamationTriangleIcon className="h-6 w-6 text-red-400" />
+            </motion.div>
+            <div className="ml-4">
+              <motion.h3 
+                className="text-lg font-semibold text-red-800"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+              >
+                Connection Error
+              </motion.h3>
+              <motion.div 
+                className="mt-2 text-red-700"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2, duration: 0.3 }}
+              >
+                {error}
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 } 

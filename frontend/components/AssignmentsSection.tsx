@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from 'framer-motion';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { Assignment } from '../types/assignment';
 import AssignmentTable from './AssignmentTable';
 
@@ -10,33 +12,76 @@ interface AssignmentsSectionProps {
 }
 
 export default function AssignmentsSection({ assignments, isLoading, fetchAssignments }: AssignmentsSectionProps) {
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const
+      }
+    }
+  };
+
+  const buttonVariants = {
+    tap: {
+      scale: 0.98,
+      transition: {
+        duration: 0.1
+      }
+    }
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      <div className="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
+    <motion.div 
+      className="bg-card rounded-2xl shadow-lg border border-border overflow-hidden"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className="px-8 py-6 border-b border-border bg-muted">
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <h2 className="text-2xl font-bold text-card-foreground">
               Treatment Assignments
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-muted-foreground mt-1">
               Comprehensive overview of all medication assignments and treatment progress
             </p>
-          </div>
-          <button
+          </motion.div>
+          <motion.button
             onClick={fetchAssignments}
             disabled={isLoading}
             className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl cursor-pointer"
+            variants={buttonVariants}
+            whileTap="tap"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            <span>Refresh</span>
-          </button>
+            <motion.div
+              animate={isLoading ? { rotate: 360 } : { rotate: 0 }}
+              transition={{ duration: 1, repeat: isLoading ? Infinity : 0, ease: "linear" }}
+            >
+              <ArrowPathIcon className="w-5 h-5" />
+            </motion.div>
+            <span>{isLoading ? 'Refreshing...' : 'Refresh'}</span>
+          </motion.button>
         </div>
       </div>
-      <div className="p-8">
+      <motion.div 
+        className="p-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
         <AssignmentTable assignments={assignments} isLoading={isLoading} />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 } 

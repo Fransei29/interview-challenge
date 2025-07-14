@@ -72,7 +72,8 @@ export default function Home() {
   const canCreateAssignment = patients.length > 0 && medications.length > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen" style={{ background: 'var(--page-bg)' }}>
+      
       {/* Hero Banner */}
       <HeroBanner assignments={assignments} getDynamicMessage={getDynamicMessage} />
 

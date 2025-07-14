@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 /**
  * Reusable back button component
@@ -10,14 +12,26 @@ export default function BackButton() {
   const router = useRouter();
 
   return (
-    <button
+    <motion.button
       onClick={() => router.push('/')}
       className="group inline-flex items-center space-x-3 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 px-6 py-3 rounded-2xl border border-gray-200 hover:border-gray-300 transition-all duration-200 shadow-lg hover:shadow-xl cursor-pointer"
+      whileHover={{ 
+        x: -5,
+        transition: { duration: 0.2, ease: "easeInOut" as const }
+      }}
+      whileTap={{ scale: 0.98 }}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" as const }}
     >
-      <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>
+      <motion.div
+        className="flex items-center"
+        whileHover={{ x: -3 }}
+        transition={{ duration: 0.2 }}
+      >
+        <ArrowLeftIcon className="w-5 h-5" />
+      </motion.div>
       <span className="font-semibold text-lg">Back to Dashboard</span>
-    </button>
+    </motion.button>
   );
 } 
