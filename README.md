@@ -2,14 +2,19 @@
 
 A full-stack mini-app to manage patients, medications, and their treatment assignments for a digital health workflow.
 
+## 🌐 Live Application
+
+**Frontend (Vercel):** https://oxyera-medication-tracker.vercel.app  
+**Backend (Railway):** https://oxyera-medication-tracker-production.up.railway.app
+
 ## 🚀 Implementation Summary
 
 ### ✅ **Backend Implementation (NestJS)**
 
 **Database & Models:**
-- ✅ SQLite database with proper schema for `patients`, `medications`, and `assignments` tables
+- ✅ **Turso SQLite Database**: Cloud-hosted SQLite with proper schema for `patients`, `medications`, and `assignments` tables
 - ✅ TypeORM entities with proper relationships (Patient has many Assignments, Medication has many Assignments)
-- ✅ Environment configuration for database path and port
+- ✅ Environment configuration for Turso database URL and authentication
 
 **CRUD APIs:**
 - ✅ **Patient Controller**: Full CRUD operations with validation
@@ -36,6 +41,7 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 - ✅ **Input Validation**: Comprehensive validation using class-validator decorators
 - ✅ **Error Handling**: Proper HTTP status codes and error messages
 - ✅ **TypeScript**: Full type safety throughout the application
+- ✅ **CORS Configuration**: Configured for Vercel frontend
 
 **Testing:**
 - ✅ **Unit Tests**: Comprehensive test coverage for all services
@@ -50,14 +56,15 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 
 **Pages & Navigation:**
 - ✅ **Dashboard** (`/`): Shows all assignments with remaining treatment days
-- ✅ **Create Patient** (`/patients/create`): Form to create new patients
-- ✅ **Create Medication** (`/medications/create`): Form to create new medications
-- ✅ **Create Assignment** (`/assignments/create`): Form to assign medications to patients
+- ✅ **Create Patient** (`/new-patient`): Form to create new patients
+- ✅ **Create Medication** (`/new-medication`): Form to create new medications
+- ✅ **Create Assignment** (`/new-assignment`): Form to assign medications to patients
 - ✅ **Navigation**: Clean navigation between pages with back buttons
 
 **UI/UX Features:**
 - ✅ **Modern Design**: Minimalistic and clean UI with max-width of 1250px
-- ✅ **Tailwind CSS**: Responsive design with proper styling
+- ✅ **Tailwind CSS v4**: Responsive design with CSS custom properties for dark mode
+- ✅ **Dark Mode**: Professional dark mode implementation with theme toggle
 - ✅ **Form Validation**: Client-side validation with proper error messages
 - ✅ **Loading States**: Loading indicators during API calls
 - ✅ **Error Handling**: User-friendly error messages
@@ -65,7 +72,7 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 
 **API Integration:**
 - ✅ **API Utilities**: Centralized API functions for all CRUD operations
-- ✅ **Global Configuration**: Backend URL configuration
+- ✅ **Global Configuration**: Backend URL configuration via environment variables
 - ✅ **Type Safety**: TypeScript interfaces for all API responses
 - ✅ **Error Handling**: Proper error handling for API calls
 
@@ -77,6 +84,7 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
   - **Remaining treatment days** (highlighted)
 - ✅ **Form Components**: Reusable form components with validation
 - ✅ **Back Button**: Reusable navigation component
+- ✅ **Theme Toggle**: Professional dark/light mode switch
 
 ### ✅ **Technical Excellence**
 
@@ -86,11 +94,12 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 - ✅ **Error Handling**: Comprehensive error handling throughout
 - ✅ **Validation**: Both client-side and server-side validation
 - ✅ **Testing**: High test coverage with unit and integration tests
+- ✅ **ESLint**: Clean code with no linting errors
 
 **Database:**
-- ✅ **SQLite**: Properly configured with TypeORM
+- ✅ **Turso SQLite**: Cloud-hosted SQLite database with high availability
 - ✅ **Schema**: Correct table relationships and constraints
-- ✅ **Environment**: Configurable database path and port
+- ✅ **Environment**: Configurable database URL and authentication
 
 **Development Experience:**
 - ✅ **Hot Reload**: Both frontend and backend support hot reloading
@@ -108,13 +117,14 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 Create a `.env` file in the `backend/` directory with the following variables:
 
 ```env
-DATABASE_PATH=database.sqlite
+# Turso Database Configuration
+TURSO_DATABASE_URL=libsql://medicaredb-fransei29.aws-us-east-2.turso.io
+TURSO_AUTH_TOKEN=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NTI1OTc3MTYsImlkIjoiMTQwZDkwMWQtY2RiYS00OThkLWI4ZTQtZmY0NjM3MzRmYmM0IiwicmlkIjoiYmUzMTFmYjctZDE0ZS00ZmM0LTlmZjgtNzAwOGRlY2M5ZWM5In0.bl9VgAgniokmuYZ7TJRx5J60bzvJrZHbRAS0TJHTXDpzPW7FH8N7lMsU1Cg7r_rMkcxrtbXF_dTSkbx-tDCA
+
+# Server Configuration
 PORT=8080
+NODE_ENV=development
 ```
-
-**Frontend:**
-
-The frontend is configured to connect to the backend at `http://localhost:8080`.
 
 ### 🚀 Start the Application
 
@@ -138,8 +148,6 @@ npm run dev
 
 Access on `http://localhost:3000`.
 
-The SQLite database is located at `backend/database.sqlite`.
-
 ---
 
 ## 🧪 Testing
@@ -161,13 +169,39 @@ npm run test:watch    # Run tests in watch mode
 
 ---
 
+## 🚀 Deployment
+
+### **Backend Deployment (Railway)**
+- **Platform**: Railway
+- **Database**: Turso SQLite (cloud-hosted)
+- **URL**: https://oxyera-medication-tracker-production.up.railway.app
+- **Environment Variables**:
+  - `TURSO_DATABASE_URL`: Turso database URL
+  - `TURSO_AUTH_TOKEN`: Turso authentication token
+  - `PORT`: 8080
+
+### **Frontend Deployment (Vercel)**
+- **Platform**: Vercel
+- **URL**: https://oxyera-medication-tracker.vercel.app
+- **Configuration**: Automatic deployment from GitHub repository
+
+### **Database (Turso)**
+- **Platform**: Turso
+- **Type**: SQLite (cloud-hosted)
+- **URL**: libsql://medicaredb-fransei29.aws-us-east-2.turso.io
+- **Authentication**: JWT token-based
+
+---
+
 ## 📩 Submission
 
-✅ Complete by one week after you recieved the assignment. 
+✅ Complete by one week after you received the assignment. 
 
-✅ Push to your your personal forked repo. 
+✅ Push to your personal forked repo. 
 
-✅ Email your repo link to [dev@oxyera.com](mailto\:dev@oxyera.com).
+✅ Email your repo link to [dev@oxyera.com](mailto:dev@oxyera.com).
+
+**Live Demo:** https://oxyera-medication-tracker.vercel.app
 
 Thank you for your interest in Oxyera. We look forward to reviewing your structured, clear, and working solution!
 

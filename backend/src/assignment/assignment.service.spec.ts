@@ -10,6 +10,9 @@ import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
 import { getRemainingDays } from './assignment.utils';
 
+// Extended type for testing that includes remainingDays
+type AssignmentWithRemainingDays = Assignment & { remainingDays: number };
+
 describe('AssignmentService', () => {
   let service: AssignmentService;
   let repository: Repository<Assignment>;
@@ -28,7 +31,7 @@ describe('AssignmentService', () => {
     frequency: '2 times a day',
   };
 
-  const mockAssignment: Assignment = {
+  const mockAssignment: AssignmentWithRemainingDays = {
     id: 1,
     patientId: 1,
     medicationId: 1,
@@ -36,6 +39,7 @@ describe('AssignmentService', () => {
     numberOfDays: 10,
     patient: mockPatient,
     medication: mockMedication,
+    remainingDays: 0,
   };
 
   const mockRepository = {
@@ -77,8 +81,10 @@ describe('AssignmentService', () => {
         numberOfDays: 10,
       };
 
-      mockRepository.create.mockReturnValue(mockAssignment);
-      mockRepository.save.mockResolvedValue(mockAssignment);
+      const savedAssignment = { ...mockAssignment, id: 1 };
+      mockRepository.create.mockReturnValue(savedAssignment);
+      mockRepository.save.mockResolvedValue(savedAssignment);
+      mockRepository.findOne.mockResolvedValue(mockAssignment);
 
       // Act
       const result = await service.create(createAssignmentDto);
@@ -88,7 +94,11 @@ describe('AssignmentService', () => {
         ...createAssignmentDto,
         startDate: new Date(createAssignmentDto.startDate),
       });
-      expect(mockRepository.save).toHaveBeenCalledWith(mockAssignment);
+      expect(mockRepository.save).toHaveBeenCalledWith(savedAssignment);
+      expect(mockRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+        relations: ['patient', 'medication'],
+      });
       expect(result).toEqual(mockAssignment);
     });
 
@@ -174,8 +184,11 @@ describe('AssignmentService', () => {
         numberOfDays: 15,
       };
 
-      mockRepository.findOne.mockResolvedValue(mockAssignment);
-      mockRepository.save.mockResolvedValue({ ...mockAssignment, ...updateAssignmentDto });
+      const updatedAssignment = { ...mockAssignment, numberOfDays: 15 };
+      mockRepository.findOne
+        .mockResolvedValueOnce(mockAssignment) // First call in update method
+        .mockResolvedValueOnce(updatedAssignment); // Second call after save
+      mockRepository.save.mockResolvedValue(updatedAssignment);
 
       // Act
       const result = await service.update(assignmentId, updateAssignmentDto);
@@ -186,7 +199,7 @@ describe('AssignmentService', () => {
         relations: ['patient', 'medication'],
       });
       expect(mockRepository.save).toHaveBeenCalled();
-      expect(result).toEqual({ ...mockAssignment, ...updateAssignmentDto });
+      expect(result).toEqual(updatedAssignment);
     });
 
     it('should throw NotFoundException when assignment not found', async () => {
