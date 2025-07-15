@@ -33,7 +33,7 @@ export interface CreateAssignmentPayload {
  * Centralized HTTP client for backend communication
  */
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 // Create axios instance with default configuration
 const api = axios.create({
