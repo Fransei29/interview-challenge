@@ -6,9 +6,10 @@ import {
   UserGroupIcon,
   ClockIcon
 } from '@heroicons/react/24/outline';
+import { Assignment } from '../types/assignment';
 
 interface HeroBannerProps {
-  assignments: any[];
+  assignments: Assignment[];
   getDynamicMessage: () => string;
 }
 

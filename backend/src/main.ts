@@ -13,7 +13,11 @@ async function bootstrap() {
   }));
 
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://oxyera-medication-tracker.vercel.app',
+      /\.vercel\.app$/,
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   });

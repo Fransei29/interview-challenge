@@ -34,7 +34,7 @@ export default function NewMedicationPage() {
       await medicationApi.create(payload);
       setSuccess(true);
       setTimeout(() => router.push('/'), 1200);
-    } catch (err) {
+    } catch {
       setError('Failed to create medication. Please try again.');
     } finally {
       setIsSubmitting(false);

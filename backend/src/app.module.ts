@@ -15,7 +15,7 @@ dotenv.config();
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: process.env.DB_PATH || 'database.sqlite',
+      database: process.env.TURSO_DATABASE_URL || 'database.sqlite',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

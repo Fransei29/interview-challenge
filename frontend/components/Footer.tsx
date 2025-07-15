@@ -61,7 +61,7 @@ export default function Footer() {
     >
       <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border shadow-lg">
         <div className="flex items-center justify-center space-x-8 text-muted-foreground">
-          {techStack.map((tech, index) => {
+          {techStack.map((tech) => {
             const IconComponent = tech.icon;
             return (
               <motion.div 

@@ -32,7 +32,7 @@ export default function NewPatientPage() {
       await patientApi.create(payload);
       setSuccess(true);
       setTimeout(() => router.push('/'), 1200);
-    } catch (err) {
+    } catch {
       setError('Failed to create patient. Please try again.');
     } finally {
       setIsSubmitting(false);

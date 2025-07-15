@@ -5,7 +5,6 @@ import {
   ClipboardDocumentListIcon,
   CheckCircleIcon,
   ClockIcon,
-  ExclamationTriangleIcon,
   BoltIcon,
   CalendarIcon
 } from '@heroicons/react/24/outline';
@@ -138,7 +137,7 @@ export default function AssignmentTable({ assignments, isLoading }: AssignmentTa
           </thead>
           <tbody className="bg-card divide-y divide-border">
             <AnimatePresence>
-              {assignments.map((assignment, index) => {
+              {assignments.map((assignment) => {
                 const startDate = new Date(assignment.startDate);
                 const remainingDays = assignment.remainingDays;
                 

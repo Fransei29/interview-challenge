@@ -72,7 +72,7 @@ export default function NewAssignmentPage() {
       await assignmentApi.create(payload);
       setSuccess(true);
       setTimeout(() => router.push('/'), 1200);
-    } catch (err) {
+    } catch {
       setError('Failed to create assignment. Please try again.');
     } finally {
       setIsSubmitting(false);
