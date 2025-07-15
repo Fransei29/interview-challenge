@@ -4,8 +4,8 @@ A full-stack mini-app to manage patients, medications, and their treatment assig
 
 ## 🌐 Live Application
 
-**Frontend (Vercel):** https://oxyera-medication-tracker.vercel.app  
-**Backend (Railway):** https://oxyera-medication-tracker-production.up.railway.app
+**Frontend (Vercel):** https://interview-challenge-ecru.vercel.app  
+**Backend (Render):** https://interview-challenge-kq0b.onrender.com
 
 ## 🚀 Implementation Summary
 
@@ -171,10 +171,10 @@ npm run test:watch    # Run tests in watch mode
 
 ## 🚀 Deployment
 
-### **Backend Deployment (Railway)**
-- **Platform**: Railway
+### **Backend Deployment (Render)**
+- **Platform**: Render
 - **Database**: Turso SQLite (cloud-hosted)
-- **URL**: https://oxyera-medication-tracker-production.up.railway.app
+- **URL**: https://interview-challenge-kq0b.onrender.com
 - **Environment Variables**:
   - `TURSO_DATABASE_URL`: Turso database URL
   - `TURSO_AUTH_TOKEN`: Turso authentication token
@@ -182,7 +182,9 @@ npm run test:watch    # Run tests in watch mode
 
 ### **Frontend Deployment (Vercel)**
 - **Platform**: Vercel
-- **URL**: https://oxyera-medication-tracker.vercel.app
+- **URL**: https://interview-challenge-ecru.vercel.app
+- **Environment Variables Required**:
+  - `NEXT_PUBLIC_API_URL`: Backend API URL (https://interview-challenge-kq0b.onrender.com)
 - **Configuration**: Automatic deployment from GitHub repository
 
 ### **Database (Turso)**
@@ -190,6 +192,10 @@ npm run test:watch    # Run tests in watch mode
 - **Type**: SQLite (cloud-hosted)
 - **URL**: libsql://medicaredb-fransei29.aws-us-east-2.turso.io
 - **Authentication**: JWT token-based
+- **Configuration**: 
+  - Database hosted on Turso cloud platform
+  - Free tier with high availability
+  - Automatic backups and scaling
 
 ---
 
@@ -201,7 +207,9 @@ npm run test:watch    # Run tests in watch mode
 
 ✅ Email your repo link to [dev@oxyera.com](mailto:dev@oxyera.com).
 
-**Live Demo:** https://oxyera-medication-tracker.vercel.app
+**Live Demo:** https://interview-challenge-ecru.vercel.app
 
 Thank you for your interest in Oxyera. We look forward to reviewing your structured, clear, and working solution!
+
+---
 
